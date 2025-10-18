@@ -1,0 +1,191 @@
+/* Basic styling for Phase 1 - will be expanded in Phase 3 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.room-controls {
+  margin-bottom: 20px;
+}
+
+.room-controls button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.room-controls button:hover {
+  background-color: #2980b9;
+}
+
+.join-room {
+  margin: 20px 0;
+}
+
+.join-room input {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+#room-info {
+  background-color: #e8f5e8;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+#room-info p {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+#current-room {
+  font-weight: bold;
+  color: #27ae60;
+  font-size: 24px;
+}
+
+#start-game {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+#start-game:hover {
+  background-color: #219a52;
+}
+
+/* Game page styles */
+.game-info {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  background-color: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  grid-template-rows: repeat(3, 120px);
+  gap: 5px;
+  margin: 20px auto;
+  background-color: #34495e;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.cell {
+  background-color: #ecf0f1;
+  border: 2px solid #95a5a6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.cell:hover {
+  background-color: #d5dbdb;
+}
+
+.piece-selector {
+  margin-bottom: 20px;
+}
+
+.piece-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.piece-btn {
+  padding: 10px 15px;
+  border: 2px solid #3498db;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.piece-btn:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+.piece-btn.selected {
+  background-color: #3498db;
+  color: white;
+}
+
+.status-message {
+  margin: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.status-message.success {
+  background-color: #d5f4e6;
+  color: #27ae60;
+}
+
+.status-message.error {
+  background-color: #fadbd8;
+  color: #e74c3c;
+}
+
+#leave-game {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#leave-game:hover {
+  background-color: #c0392b;
+}
