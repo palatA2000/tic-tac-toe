@@ -168,6 +168,9 @@ class GameUI {
     } else {
       this.disableBoard();
     }
+    
+    // Set default selected piece size
+    this.updatePieceButtons();
   }
 
   updateGameState(room) {
@@ -210,11 +213,26 @@ class GameUI {
     if (myPlayer) {
       this.pieces = { ...myPlayer.pieces };
       
-      // Update button text
+      // Update button display with visual size differences
       const buttons = document.querySelectorAll('.piece-btn');
+      const fontSizes = { small: '18px', medium: '28px', large: '38px' };
+      
       buttons.forEach(btn => {
         const size = btn.dataset.size;
-        btn.textContent = `${size.charAt(0).toUpperCase() + size.slice(1)} (${this.pieces[size]})`;
+        btn.innerHTML = '';
+        
+        const symbolSpan = document.createElement('span');
+        symbolSpan.textContent = this.playerSymbol;
+        symbolSpan.style.fontSize = fontSizes[size];
+        symbolSpan.style.fontWeight = 'bold';
+        symbolSpan.style.marginRight = '8px';
+        
+        const countSpan = document.createElement('span');
+        countSpan.textContent = `(${this.pieces[size]})`;
+        countSpan.style.fontSize = '14px';
+        
+        btn.appendChild(symbolSpan);
+        btn.appendChild(countSpan);
         
         // Disable button if no pieces left
         btn.disabled = this.pieces[size] === 0;
