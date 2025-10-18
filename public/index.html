@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Lobby Section -->
+    <div id="lobby-section" class="container">
         <h1>Tic-Tac-Toe Multiplayer</h1>
         <div class="room-controls">
             <button id="create-room">Create Room</button>
@@ -19,10 +20,58 @@
         <div id="room-info" class="hidden">
             <p>Room Code: <span id="current-room"></span></p>
             <p>Share this code with your opponent to join!</p>
-            <button id="start-game">Start Game</button>
+            <p id="waiting-message">Waiting for opponent...</p>
         </div>
     </div>
+
+    <!-- Game Section -->
+    <div id="game-section" class="container hidden">
+        <header>
+            <h1>Tic-Tac-Toe</h1>
+            <div class="game-info">
+                <p>Room: <span id="game-room-code"></span></p>
+                <p>Your Symbol: <span id="player-symbol"></span></p>
+                <p id="turn-indicator">Waiting for opponent...</p>
+            </div>
+        </header>
+        
+        <main>
+            <div class="game-container">
+                <div class="piece-selector">
+                    <h3>Select Piece Size:</h3>
+                    <div class="piece-options">
+                        <button class="piece-btn" data-size="small">Small (3)</button>
+                        <button class="piece-btn" data-size="medium">Medium (3)</button>
+                        <button class="piece-btn" data-size="large">Large (3)</button>
+                    </div>
+                </div>
+                
+                <div class="board-container">
+                    <div id="game-board" class="game-board">
+                        <div class="cell" data-position="0"></div>
+                        <div class="cell" data-position="1"></div>
+                        <div class="cell" data-position="2"></div>
+                        <div class="cell" data-position="3"></div>
+                        <div class="cell" data-position="4"></div>
+                        <div class="cell" data-position="5"></div>
+                        <div class="cell" data-position="6"></div>
+                        <div class="cell" data-position="7"></div>
+                        <div class="cell" data-position="8"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div id="game-status" class="status-message"></div>
+        
+        <footer>
+            <button id="leave-game">Leave Game</button>
+        </footer>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
     <script src="js/socket.js"></script>
+    <script src="js/board.js"></script>
     <script src="js/game.js"></script>
 </body>
 </html>
