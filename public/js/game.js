@@ -35,6 +35,9 @@ class GameUI {
       },
       onError: (data) => {
         this.showError(data.message);
+      },
+      onChatMessage: (data) => {
+        this.handleChatMessage(data);
       }
     });
 
@@ -325,6 +328,54 @@ class GameUI {
     document.getElementById('lobby-section').classList.remove('hidden');
     document.getElementById('game-section').classList.add('hidden');
   }
+
+  handleChatMessage(data) {
+    const chatMessages = document.getElementById('chat-messages');
+    if (!chatMessages) return;
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'chat-message';
+
+    // Add 'my-message' class if this is my message
+    if (data.playerId === this.playerId) {
+      messageDiv.classList.add('my-message');
+    } else {
+      messageDiv.classList.add('opponent-message');
+    }
+
+    // Create message content
+    const header = document.createElement('div');
+    header.className = 'message-header';
+    header.textContent = `${data.playerSymbol} - ${data.playerName}`;
+
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    content.textContent = data.message;
+
+    const time = document.createElement('div');
+    time.className = 'message-time';
+    time.textContent = new Date(data.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    messageDiv.appendChild(header);
+    messageDiv.appendChild(content);
+    messageDiv.appendChild(time);
+
+    chatMessages.appendChild(messageDiv);
+
+    // Auto-scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  sendChatMessage() {
+    const chatInput = document.getElementById('chat-input');
+    if (!chatInput) return;
+
+    const message = chatInput.value.trim();
+    if (message && this.currentRoom) {
+      socketManager.sendChatMessage(this.currentRoom, message);
+      chatInput.value = '';
+    }
+  }
 }
 
 // Initialize game UI when DOM is ready
@@ -375,6 +426,24 @@ document.addEventListener('DOMContentLoaded', () => {
     leaveGameBtn.addEventListener('click', () => {
       socketManager.disconnect();
       window.location.reload();
+    });
+  }
+
+  // Chat functionality
+  const sendChatBtn = document.getElementById('send-chat-btn');
+  const chatInput = document.getElementById('chat-input');
+
+  if (sendChatBtn) {
+    sendChatBtn.addEventListener('click', () => {
+      gameUI.sendChatMessage();
+    });
+  }
+
+  if (chatInput) {
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        gameUI.sendChatMessage();
+      }
     });
   }
 });

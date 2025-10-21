@@ -104,6 +104,25 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("send-chat-message", (data) => {
+    const { roomId, message } = data;
+    const room = gameManager.getRoomById(roomId);
+
+    if (room) {
+      const player = room.players.find((p) => p.id === socket.id);
+
+      if (player) {
+        io.to(roomId).emit("chat-message", {
+          playerId: socket.id,
+          playerName: player.name,
+          playerSymbol: player.symbol,
+          message: message,
+          timestamp: Date.now(),
+        });
+      }
+    }
+  });
+
   socket.on("disconnect", () => {
     console.log("Client disconnected:", socket.id);
 
