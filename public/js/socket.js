@@ -61,6 +61,12 @@ class SocketManager {
         this.callbacks.onError(data);
       }
     });
+
+    this.socket.on('chat-message', (data) => {
+      if (this.callbacks.onChatMessage) {
+        this.callbacks.onChatMessage(data);
+      }
+    });
   }
 
   disconnect() {
@@ -88,7 +94,13 @@ class SocketManager {
       this.socket.emit('make-move', { roomId, position, size });
     }
   }
-  
+
+  sendChatMessage(roomId, message) {
+    if (this.socket && this.isConnected) {
+      this.socket.emit('send-chat-message', { roomId, message });
+    }
+  }
+
   setCallbacks(callbacks) {
     this.callbacks = callbacks;
   }
